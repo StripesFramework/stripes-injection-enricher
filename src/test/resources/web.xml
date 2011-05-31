@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+    <display-name>Stripes EJB3 Interceptor</display-name>
+
+    <filter>
+        <description>
+            Provides essential configuration and request processing services for the Stripes framework.
+        </description>
+        <display-name>Stripes Filter</display-name>
+        <filter-name>StripesFilter</filter-name>
+        <filter-class>net.sourceforge.stripes.controller.StripesFilter</filter-class>
+        <init-param>
+            <param-name>Stripes.EncryptionKey</param-name>
+            <param-value>Framework encryption key!!!</param-value>
+        </init-param>
+        <init-param>
+            <param-name>FileUpload.MaximumPostSize</param-name>
+            <param-value>10MB</param-value>
+        </init-param>
+        <init-param>
+            <param-name>LocalePicker.Locales</param-name>
+            <param-value>en:UTF-8,pt:UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>ActionResolver.Packages</param-name>
+            <param-value>com.samaxes.stripes.action</param-value>
+        </init-param>
+        <init-param>
+            <param-name>Extension.Packages</param-name>
+            <param-value>com.samaxes.stripes.inject</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>StripesFilter</filter-name>
+        <servlet-name>StripesDispatcher</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>StripesDispatcher</servlet-name>
+        <servlet-class>net.sourceforge.stripes.controller.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>StripesDispatcher</servlet-name>
+        <url-pattern>*.action</url-pattern>
+    </servlet-mapping>
+
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+    <env-entry>
+        <env-entry-name>greeting</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>Hello, </env-entry-value>
+    </env-entry>
+</web-app>
