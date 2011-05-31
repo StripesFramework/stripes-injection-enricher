@@ -49,7 +49,7 @@
     <scm>
         <connection>scm:git:git://github.com/samaxes/stripes-injection-enricher.git</connection>
         <developerConnection>scm:git:git@github.com:samaxes/stripes-injection-enricher.git</developerConnection>
-        <url>scm:git:git://github.com/samaxes/stripes-injection-enricher.git</url>
+        <url>http://github.com/samaxes/stripes-injection-enricher</url>
     </scm>
 
     <prerequisites>
