@@ -47,7 +47,7 @@
         <url>http://github.com/samaxes/stripes-injection-enricher/issues</url>
     </issueManagement>
     <scm>
-        <connection>scm:git:git://github.com/samaxes/stripes-injection-enricher.git</connection>
+        <connection>scm:git:git://git@github.com:samaxes/stripes-injection-enricher.git</connection>
         <developerConnection>scm:git:ssh://github.com/samaxes/stripes-injection-enricher.git</developerConnection>
         <url>git://github.com/samaxes/stripes-injection-enricher.git</url>
     </scm>
