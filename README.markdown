@@ -45,7 +45,7 @@ Add Stripes Injection Enricher dependency to your project:
     <dependency>
         <groupId>com.samaxes.stripes</groupId>
         <artifactId>stripes-injection-enricher</artifactId>
-        <version>1.0</version>
+        <version>VERSION</version>
     </dependency>
 
 ### Stripes configuration
@@ -56,6 +56,14 @@ Add Stripes Injection Enricher to Stripes `Extension.Packages` property:
         <param-name>Extension.Packages</param-name>
         <param-value>com.samaxes.stripes.inject</param-value>
     </init-param>
+
+## Requirements
+
+Stripes Injection Enricher requires a Java EE 6-compliant application server providing support for JSR-299 (CDI).  
+It has been tested with:
+
+* JBoss AS 6
+* GlassFish 3.1
 
 ## Licensing
 
