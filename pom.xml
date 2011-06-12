@@ -43,7 +43,7 @@
     </developers>
 
     <issueManagement>
-        <system>Google Code</system>
+        <system>GitHub</system>
         <url>http://github.com/samaxes/stripes-injection-enricher/issues</url>
     </issueManagement>
     <scm>
