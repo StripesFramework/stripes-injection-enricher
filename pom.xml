@@ -10,7 +10,7 @@
 
     <groupId>com.samaxes.stripes</groupId>
     <artifactId>stripes-injection-enricher</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Stripes Injection Enricher</name>
@@ -79,7 +79,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.3.1</version>
+                <version>2.3.2</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -94,7 +94,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.8.1</version>
+                <version>2.9</version>
                 <configuration>
                     <skipTests>true</skipTests>
                 </configuration>
@@ -102,7 +102,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.8.1</version>
+                <version>2.9</version>
                 <configuration>
                     <skipTests>true</skipTests>
                 </configuration>
@@ -141,7 +141,7 @@
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
             <artifactId>jboss-ejb-api_3.1_spec</artifactId>
-            <version>1.0.0.Final</version>
+            <version>1.0.1.Final</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -196,7 +196,7 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>5.14.9</version>
+            <version>6.2.1</version>
             <scope>test</scope>
         </dependency>
         <!-- Compile -->
@@ -264,12 +264,12 @@
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <additionalClasspathElements>
-                                <additionalClasspathElement>${JBOSS_HOME}/client/jbossws-native-client.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${jboss.home.6}/client/jbossws-native-client.jar</additionalClasspathElement>
                                 <!--
                                     Because jbossweb.sar contains shared web.xml, which must be
                                     visible from same CL as TomcatDeployer.class.getClassLoader
                                 -->
-                                <additionalClasspathElement>${JBOSS_HOME}/server/default/deploy/jbossweb.sar</additionalClasspathElement>
+                                <additionalClasspathElement>${jboss.home.6}/server/default/deploy/jbossweb.sar</additionalClasspathElement>
                             </additionalClasspathElements>
                             <redirectTestOutputToFile>true</redirectTestOutputToFile>
                             <trimStackTrace>false</trimStackTrace>
@@ -282,7 +282,7 @@
                                 classes, methods, etc. EMB-41. Endorsed required for things like
                                 WS support (EMB-61)
                             -->
-                            <argLine>-Xmx1024m -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Djboss.home=${JBOSS_HOME} -Djava.endorsed.dirs=${JBOSS_HOME}/lib/endorsed -Djboss.boot.server.log.dir=${JBOSS_HOME}/server/default/log</argLine>
+                            <argLine>-Xmx1024m -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Djboss.home=${jboss.home.6} -Djava.endorsed.dirs=${jboss.home.6}/lib/endorsed -Djboss.boot.server.log.dir=${jboss.home.6}/server/default/log</argLine>
                         </configuration>
                     </plugin>
                     <plugin>
@@ -346,8 +346,8 @@
 
     <properties>
         <arquillian.version>1.0.0.Alpha5</arquillian.version>
-        <shrinkwrap.version>1.0.0-alpha-12</shrinkwrap.version>
-        <jboss.version.6>6.0.0.Final</jboss.version.6>
-        <JBOSS_HOME>${project.build.directory}/jboss-${jboss.version.6}</JBOSS_HOME>
+        <shrinkwrap.version>1.0.0-beta-5</shrinkwrap.version>
+        <jboss.version.6>6.1.0.Final</jboss.version.6>
+        <jboss.home.6>${project.build.directory}/jboss-${jboss.version.6}</jboss.home.6>
     </properties>
 </project>

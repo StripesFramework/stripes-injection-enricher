@@ -1,5 +1,9 @@
 # Stripes Injection Enricher
 
+## 1.0.1
+
+* Lookup of CDI BeanManager is performed only if the annotation @Inject is present.
+
 ## 1.0
 
 * Support for javax.ejb.EJB, javax.inject.Inject and javax.annotation.Resource standard Java EE annotations.

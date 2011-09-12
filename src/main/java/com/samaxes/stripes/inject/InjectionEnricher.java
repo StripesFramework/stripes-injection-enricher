@@ -124,7 +124,7 @@ public class InjectionEnricher implements Interceptor {
         fillFieldMaps(bean.getClass());
         fillMethodMaps(bean.getClass());
 
-        CDIInjectionEnricher.bind(bean);
+        CDIInjectionEnricher.bind(bean, cdiTargetMap.get(bean.getClass()));
         EJBInjectionEnricher.bind(bean, ejbFieldMap.get(bean.getClass()), ejbMethodMap.get(bean.getClass()));
         ResourceInjectionEnricher.bind(bean, resourceFieldMap.get(bean.getClass()), resourceMethodMap.get(bean
                 .getClass()));

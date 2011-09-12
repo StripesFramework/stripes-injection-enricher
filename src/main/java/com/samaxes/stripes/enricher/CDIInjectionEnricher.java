@@ -51,20 +51,20 @@ public class CDIInjectionEnricher {
      * Lookup beans and inject them into objects.
      * 
      * @param bean the binding process target
-     * @throws Exception if the binding process produced unrecoverable errors
+     * @param injectAnnotationPresent whether @Inject is present in class or not
      */
-    public static void bind(ActionBean bean) throws Exception {
+    public static void bind(ActionBean bean, Boolean injectAnnotationPresent) {
         log.debug("Running CDI dependency injection for instance of ", bean.getClass().getSimpleName());
 
-        if (bean != null) {
+        if (bean != null && injectAnnotationPresent != null && injectAnnotationPresent) {
             BeanManager beanManager = lookupBeanManager();
 
             if (beanManager != null) {
                 injectNonContextualInstance(beanManager, bean);
             } else {
                 // Better would be to raise an exception if @Inject is present in class and BeanManager cannot be found
-                log.info("BeanManager cannot be located in context. Either you are using an archive with no beans.xml,"
-                        + " or the BeanManager has not been produced.");
+                log.error("BeanManager cannot be located in context. Either you are using an archive with no beans.xml"
+                        + ", or the BeanManager has not been produced.");
             }
         }
     }
