@@ -2,13 +2,13 @@
  * $Id$
  *
  * Copyright 2011 samaxes.com
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,29 +47,25 @@ import com.samaxes.stripes.enricher.ResourceInjectionEnricher;
  * Enricher that provide @Inject, @EJB and @Resource field and setter method injection. It is used to lookup beans and
  * resources, and inject them into objects (often ActionBeans).
  * </p>
- * 
  * <p>
  * Fields annotated with @Resources will only be injected if the current value is {@code NULL} or primitive default
  * value.
  * </p>
- * 
  * <p>
  * Methods and fields may be public, protected, package-access or private. If they are not public an attempt is made to
  * call {@link Method#setAccessible(boolean)} in order to make them accessible from this class. If the attempt fails, an
  * exception will be thrown.
  * </p>
- * 
  * <p>
  * The first time that any of the injection methods in this class is called with a specific type of object, the object's
  * class is examined for annotated fields and methods. The discovered fields and methods are then cached for future
  * usage.
  * </p>
- * 
  * <p>
  * To configure {@code InjectionEnricher}, add the following initialization parameters to your Stripes filter
  * configuration (in {@code web.xml}):
  * </p>
- * 
+ *
  * <pre>
  * {@code
  * <init-param>
@@ -78,7 +74,7 @@ import com.samaxes.stripes.enricher.ResourceInjectionEnricher;
  * </init-param>
  * }
  * </pre>
- * 
+ *
  * @author Samuel Santos
  * @version $Revision$
  */
@@ -111,11 +107,12 @@ public class InjectionEnricher implements Interceptor {
     /**
      * Allows ActionBean resolution to proceed and then once the ActionBean has been located performs the injection
      * enrichment.
-     * 
+     *
      * @param ctx the current execution context
      * @return the Resolution produced by calling context.proceed()
      * @throws Exception if the binding process produced unrecoverable errors
      */
+    @Override
     public Resolution intercept(ExecutionContext ctx) throws Exception {
         Resolution resolution = ctx.proceed();
         ActionBean bean = ctx.getActionBean();
@@ -126,8 +123,8 @@ public class InjectionEnricher implements Interceptor {
 
         CDIInjectionEnricher.bind(bean, cdiTargetMap.get(bean.getClass()));
         EJBInjectionEnricher.bind(bean, ejbFieldMap.get(bean.getClass()), ejbMethodMap.get(bean.getClass()));
-        ResourceInjectionEnricher.bind(bean, resourceFieldMap.get(bean.getClass()), resourceMethodMap.get(bean
-                .getClass()));
+        ResourceInjectionEnricher.bind(bean, resourceFieldMap.get(bean.getClass()),
+                resourceMethodMap.get(bean.getClass()));
 
         return resolution;
     }
@@ -137,7 +134,7 @@ public class InjectionEnricher implements Interceptor {
      * class it will introspect the class and cache the results. All non-overridden fields are examined, including
      * protected and private fields. If a field is not public an attempt it made to make it accessible - if it fails it
      * is removed from the collection and an error is logged.
-     * 
+     *
      * @param clazz the class on which to look for annotated fields
      */
     protected void fillFieldMaps(Class<?> clazz) {
@@ -207,7 +204,7 @@ public class InjectionEnricher implements Interceptor {
      * class it will introspect the class and cache the results. All non-overridden methods are examined, including
      * protected and private methods. If a method is not public an attempt it made to make it accessible - if it fails
      * it is removed from the collection and an error is logged.
-     * 
+     *
      * @param clazz the class on which to look for annotated methods
      */
     protected void fillMethodMaps(Class<?> clazz) {

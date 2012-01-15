@@ -2,13 +2,13 @@
  * $Id$
  *
  * Copyright 2011 samaxes.com
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,11 +34,10 @@ import net.sourceforge.stripes.util.Log;
  * Enricher that provide @Resource field and setter method injection. It is used to lookup resources and inject them
  * into objects (often ActionBeans).
  * </p>
- * 
  * <p>
  * Field resources will only be injected if the current value is NULL or primitive default value.
  * </p>
- * 
+ *
  * @author Samuel Santos
  * @version $Revision$
  */
@@ -57,7 +56,7 @@ public class ResourceInjectionEnricher {
 
     /**
      * Lookup resources and inject them into objects.
-     * 
+     *
      * @param bean the binding process target
      * @param fields fields on a class that are annotated for injection
      * @param methods methods on a class that are annotated for injection
@@ -88,7 +87,7 @@ public class ResourceInjectionEnricher {
 
     /**
      * Looks up the JNDI resource for any given annotated element.
-     * 
+     *
      * @param element any annotated element (field, method, etc.)
      * @return the located resource
      * @throws Exception when no resource found in JNDI
@@ -109,7 +108,7 @@ public class ResourceInjectionEnricher {
 
     /**
      * Get the resource JNDI name.
-     * 
+     *
      * @param field the annotated field
      * @return the resource JNDI name
      */
@@ -127,7 +126,7 @@ public class ResourceInjectionEnricher {
 
     /**
      * Get the resource JNDI name.
-     * 
+     *
      * @param resource the element annotation
      * @return the resource JNDI name
      */

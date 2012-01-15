@@ -2,13 +2,13 @@
  * $Id$
  *
  * Copyright 2011 samaxes.com
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +28,7 @@ import net.sourceforge.stripes.util.Log;
 /**
  * Enricher that provide JSR-299 CDI field and method argument injection. It is used to lookup managed beans and inject
  * them into objects (often ActionBeans).
- * 
+ *
  * @author Samuel Santos
  * @version $Revision$
  */
@@ -49,7 +49,7 @@ public class CDIInjectionEnricher {
 
     /**
      * Lookup beans and inject them into objects.
-     * 
+     *
      * @param bean the binding process target
      * @param injectAnnotationPresent whether @Inject is present in class or not
      */
@@ -71,7 +71,7 @@ public class CDIInjectionEnricher {
 
     /**
      * Inject non contextual object instance.
-     * 
+     *
      * @param manager the BeanManager
      * @param instance the object instance
      */
@@ -85,7 +85,7 @@ public class CDIInjectionEnricher {
 
     /**
      * Lookup BeanManager and return it.
-     * 
+     *
      * @return the BeanManager
      */
     protected static BeanManager lookupBeanManager() {

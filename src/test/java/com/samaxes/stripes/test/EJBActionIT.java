@@ -2,13 +2,13 @@
  * $Id$
  *
  * Copyright 2011 samaxes.com
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,9 +23,9 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.logging.Logger;
 
-import org.jboss.arquillian.api.ArquillianResource;
-import org.jboss.arquillian.api.Deployment;
-import org.jboss.arquillian.api.RunAsClient;
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.container.test.api.RunAsClient;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.testng.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.formatter.Formatters;
@@ -42,7 +42,7 @@ import com.samaxes.stripes.business.FooServiceBean;
 
 /**
  * Simple EJB injection test class.
- * 
+ *
  * @author Samuel Santos
  * @version $Revision$
  */
@@ -66,6 +66,7 @@ public class EJBActionIT extends BaseIT {
         return ear;
     }
 
+    @Override
     @RunAsClient
     @Test(dataProvider = Arquillian.ARQUILLIAN_DATA_PROVIDER)
     public void shouldGreetUserOnClientSide(@ArquillianResource URL baseURL) throws IOException {

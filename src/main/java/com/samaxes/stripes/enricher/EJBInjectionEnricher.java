@@ -2,13 +2,13 @@
  * $Id$
  *
  * Copyright 2011 samaxes.com
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,7 +32,7 @@ import net.sourceforge.stripes.util.Log;
 /**
  * Enricher that provide EJB field and setter method injection. It is used to lookup EJBs and inject them into objects
  * (often ActionBeans).
- * 
+ *
  * @author Samuel Santos
  * @version $Revision$
  */
@@ -49,7 +49,7 @@ public class EJBInjectionEnricher {
 
     /**
      * Lookup beans and inject them into objects.
-     * 
+     *
      * @param bean the binding process target
      * @param fields fields on a class that are annotated for injection
      * @param methods methods on a class that are annotated for injection
@@ -79,7 +79,7 @@ public class EJBInjectionEnricher {
 
     /**
      * Lookup EJBs and return it.
-     * 
+     *
      * @param fieldType The EJB class type
      * @param mappedName The EJB mapped name
      * @return EJB object
@@ -90,7 +90,7 @@ public class EJBInjectionEnricher {
         String appName = (String) context.lookup("java:app/AppName");
         String moduleName = (String) context.lookup("java:module/ModuleName");
 
-        String[] jndiNames = { 
+        String[] jndiNames = {
             "java:global/" + appName + "/" + moduleName + "/" + fieldType.getSimpleName(),
             "java:global/" + appName + "/" + moduleName + "/" + fieldType.getSimpleName() + "Bean",
             "java:global/" + moduleName + "/" + fieldType.getSimpleName(),
@@ -135,7 +135,7 @@ public class EJBInjectionEnricher {
 
     /**
      * Simple helper for printing the jndi names.
-     * 
+     *
      * @param strings JNDI names array to join
      * @return comma separated JNDI names
      */
