@@ -60,9 +60,10 @@ Add Stripes Injection Enricher to Stripes `Extension.Packages` property:
 ## Requirements
 
 Stripes Injection Enricher requires a Java EE 6-compliant application server providing support for JSR-299 (CDI).  
-It has been tested with:
+It has been tested with the following application servers:
 
 * JBoss AS 6
+* JBoss AS 7
 * GlassFish 3.1
 
 ## Licensing
