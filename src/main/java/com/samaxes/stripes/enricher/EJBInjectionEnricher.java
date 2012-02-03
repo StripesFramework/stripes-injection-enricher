@@ -62,7 +62,7 @@ public class EJBInjectionEnricher {
         if (fields != null) {
             for (Field field : fields) {
                 EJB ejbAnnotation = field.getAnnotation(EJB.class);
-                Object ejb = lookupEJB(field.getType(), ejbAnnotation.mappedName());
+                Object ejb = lookupEJB(field.getType(), ejbAnnotation.lookup(), ejbAnnotation.mappedName());
                 field.set(bean, ejb);
             }
         }
@@ -71,7 +71,8 @@ public class EJBInjectionEnricher {
         if (methods != null) {
             for (Method method : methods) {
                 EJB ejbAnnotation = method.getAnnotation(EJB.class);
-                Object ejb = lookupEJB(method.getParameterTypes()[0], ejbAnnotation.mappedName());
+                Object ejb = lookupEJB(method.getParameterTypes()[0], ejbAnnotation.lookup(),
+                        ejbAnnotation.mappedName());
                 method.invoke(bean, ejb);
             }
         }
@@ -81,42 +82,53 @@ public class EJBInjectionEnricher {
      * Lookup EJBs and return it.
      *
      * @param fieldType The EJB class type
-     * @param mappedName The EJB mapped name
+     * @param lookup A portable lookup string containing the JNDI name for the target EJB component
+     * @param mappedName The product specific name of the EJB component to which this ejb reference should be mapped
      * @return EJB object
      * @throws Exception when no EJB found in JNDI
      */
-    protected static Object lookupEJB(Class<?> fieldType, String mappedName) throws Exception {
+    protected static Object lookupEJB(Class<?> fieldType, String lookup, String mappedName) throws Exception {
         Context context = new InitialContext();
         String appName = (String) context.lookup("java:app/AppName");
         String moduleName = (String) context.lookup("java:module/ModuleName");
+        String[] jndiNames;
 
-        String[] jndiNames = {
-            "java:global/" + appName + "/" + moduleName + "/" + fieldType.getSimpleName(),
-            "java:global/" + appName + "/" + moduleName + "/" + fieldType.getSimpleName() + "Bean",
-            "java:global/" + moduleName + "/" + fieldType.getSimpleName(),
-            "java:global/" + moduleName + "/" + fieldType.getSimpleName() + "Bean",
-            "java:global/" + moduleName + "/" + fieldType.getSimpleName() + "/no-interface",
-            "java:app/" + moduleName + "/" + fieldType.getSimpleName(),
-            "java:app/" + moduleName + "/" + fieldType.getSimpleName() + "Bean",
-            "java:app/" + moduleName + "/" + fieldType.getSimpleName() + "/no-interface",
-            "java:module/" + fieldType.getSimpleName(),
-            "java:module/" + fieldType.getSimpleName() + "Bean",
-            "java:module/" + fieldType.getSimpleName() + "/no-interface",
-            appName + "/" + fieldType.getSimpleName() + "Bean/local",
-            appName + "/" + fieldType.getSimpleName() + "Bean/remote",
-            appName + "/" + fieldType.getSimpleName() + "/no-interface",
-            fieldType.getSimpleName() + "Bean/local",
-            fieldType.getSimpleName() + "Bean/remote",
-            fieldType.getSimpleName() + "/no-interface",
-            // WebSphere Application Server Local EJB default binding
-            "ejblocal:" + fieldType.getCanonicalName(),
-            // WebSphere Application Server Remote EJB default binding
-            fieldType.getCanonicalName()
-        };
-
-        if (mappedName != null && !"".equals(mappedName)) {
-            // Use only the mapped name to lookup this EJB
+        if (lookup != null && !"".equals(lookup)) {
+            jndiNames = new String[] { lookup };
+        } else if (mappedName != null && !"".equals(mappedName)) {
             jndiNames = new String[] { mappedName };
+        } else {
+            // @formatter:off
+            jndiNames = new String[] {
+                "java:global/" + appName + "/" + moduleName + "/" + fieldType.getSimpleName() + "!" + fieldType.getName(),
+                "java:global/" + appName + "/" + moduleName + "/" + fieldType.getSimpleName() + "Bean!" + fieldType.getName(),
+                "java:global/" + appName + "/" + moduleName + "/" + fieldType.getSimpleName(),
+                "java:global/" + appName + "/" + moduleName + "/" + fieldType.getSimpleName() + "Bean",
+                "java:global/" + moduleName + "/" + fieldType.getSimpleName() + "!" + fieldType.getName(),
+                "java:global/" + moduleName + "/" + fieldType.getSimpleName() + "Bean!" + fieldType.getName(),
+                "java:global/" + moduleName + "/" + fieldType.getSimpleName(),
+                "java:global/" + moduleName + "/" + fieldType.getSimpleName() + "Bean",
+                "java:app/" + moduleName + "/" + fieldType.getSimpleName() + "!" + fieldType.getName(),
+                "java:app/" + moduleName + "/" + fieldType.getSimpleName() + "Bean!" + fieldType.getName(),
+                "java:app/" + moduleName + "/" + fieldType.getSimpleName(),
+                "java:app/" + moduleName + "/" + fieldType.getSimpleName() + "Bean",
+                "java:module/" + fieldType.getSimpleName() + "!" + fieldType.getName(),
+                "java:module/" + fieldType.getSimpleName() + "Bean!" + fieldType.getName(),
+                "java:module/" + fieldType.getSimpleName(),
+                "java:module/" + fieldType.getSimpleName() + "Bean",
+                // JBoss AS 6 or lower default binding
+                appName + "/" + fieldType.getSimpleName() + "Bean/local",
+                appName + "/" + fieldType.getSimpleName() + "Bean/remote",
+                appName + "/" + fieldType.getSimpleName() + "/no-interface",
+                fieldType.getSimpleName() + "Bean/local",
+                fieldType.getSimpleName() + "Bean/remote",
+                fieldType.getSimpleName() + "/no-interface",
+                // WebSphere Application Server Local EJB default binding
+                "ejblocal:" + fieldType.getCanonicalName(),
+                // WebSphere Application Server Remote EJB default binding
+                fieldType.getCanonicalName()
+            };
+            // @formatter:on
         }
 
         for (String jndiName : jndiNames) {

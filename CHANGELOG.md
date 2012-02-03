@@ -4,6 +4,7 @@
 
 * Updated Arquillian to version 1.0.0.CR7.
 * Integration tests for JBoss AS 7.
+* Support for portable session bean global JNDI names.
 
 ## 1.0.1
 

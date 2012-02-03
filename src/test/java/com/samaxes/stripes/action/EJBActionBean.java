@@ -34,7 +34,7 @@ import com.samaxes.stripes.business.FooService;
  */
 public class EJBActionBean extends BaseActionBean {
 
-    @EJB(mappedName = "java:global/stripes-enricher/business/FooServiceBean")
+    @EJB(lookup = "java:global/stripes-enricher/business/FooServiceBean")
     private FooService fooService;
 
     /**
