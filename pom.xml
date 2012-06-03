@@ -137,7 +137,6 @@
                 <configuration>
                     <description>${project.version} release of ${project.name}</description>
                     <override>true</override>
-                    <dryRun>true</dryRun>
                 </configuration>
             </plugin>
         </plugins>
