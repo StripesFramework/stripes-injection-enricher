@@ -2,9 +2,11 @@
 
 ## 1.0.2
 
-* Updated Arquillian to version 1.0.0.CR7.
+* Support for EJB 3.1 portable global JNDI names.
 * Integration tests for JBoss AS 7.
-* Support for portable session bean global JNDI names.
+* Moved from TestNG to JUnit (better integration with Arquillian).
+* Updated Arquillian to version 1.0.1.Final.
+* Updated Stripes Framework to 1.5.7.
 
 ## 1.0.1
 

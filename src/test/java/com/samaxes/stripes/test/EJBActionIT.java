@@ -24,16 +24,14 @@ import java.net.URL;
 import java.util.logging.Logger;
 
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.testng.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.formatter.Formatters;
 import org.jboss.shrinkwrap.api.spec.EnterpriseArchive;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.samaxes.stripes.action.BaseActionBean;
 import com.samaxes.stripes.action.EJBActionBean;
@@ -57,8 +55,8 @@ public class EJBActionIT extends BaseIT {
         final WebArchive war = ShrinkWrap.create(WebArchive.class, "foo.war").addPackage("com.samaxes.stripes.inject")
                 .addPackage("com.samaxes.stripes.enricher").addClasses(BaseActionBean.class, EJBActionBean.class)
                 .addAsLibraries(getStripesDependency()).setWebXML("web.xml");
-        final EnterpriseArchive ear = ShrinkWrap.create(EnterpriseArchive.class, "stripes-enricher.ear").addAsModule(
-                jar).addAsModule(war);
+        final EnterpriseArchive ear = ShrinkWrap.create(EnterpriseArchive.class, "stripes-enricher.ear")
+                .addAsModule(jar).addAsModule(war);
 
         LOGGER.info(ear.toString(Formatters.VERBOSE));
         exportArchive(ear);
@@ -66,9 +64,8 @@ public class EJBActionIT extends BaseIT {
         return ear;
     }
 
+    @Test
     @Override
-    @RunAsClient
-    @Test(dataProvider = Arquillian.ARQUILLIAN_DATA_PROVIDER)
     public void shouldGreetUserOnClientSide(@ArquillianResource URL baseURL) throws IOException {
         final String name = "Earthlings";
         final URL url = new URL(baseURL, "EJB.action");

@@ -24,16 +24,14 @@ import java.net.URL;
 import java.util.logging.Logger;
 
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.testng.Arquillian;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.formatter.Formatters;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.samaxes.stripes.action.BaseActionBean;
 import com.samaxes.stripes.action.CDIActionBean;
@@ -64,9 +62,8 @@ public class CDIActionIT extends BaseIT {
         return war;
     }
 
+    @Test
     @Override
-    @RunAsClient
-    @Test(dataProvider = Arquillian.ARQUILLIAN_DATA_PROVIDER)
     public void shouldGreetUserOnClientSide(@ArquillianResource URL baseURL) throws IOException {
         final String name = "Earthlings";
         final URL url = new URL(baseURL, "CDI.action");

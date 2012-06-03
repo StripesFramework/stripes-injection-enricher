@@ -23,12 +23,13 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.util.Collection;
 
-import org.jboss.arquillian.testng.Arquillian;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.GenericArchive;
 import org.jboss.shrinkwrap.api.exporter.ZipExporter;
 import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
 import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
+import org.junit.runner.RunWith;
 
 /**
  * Simple injection base test class.
@@ -36,7 +37,8 @@ import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
  * @author Samuel Santos
  * @version $Revision$
  */
-public abstract class BaseIT extends Arquillian {
+@RunWith(Arquillian.class)
+public abstract class BaseIT {
 
     abstract void shouldGreetUserOnClientSide(URL baseURL) throws IOException;
 

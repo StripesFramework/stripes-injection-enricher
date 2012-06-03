@@ -34,7 +34,7 @@ However you can manually set the JNDI name to lookup using the `mappedName` attr
 
     }
 
-In order for CDI injections to work, the web archive must be a bean archive. That means adding beans.xml (can be empty) to the WEB-INF directory.
+In order for CDI injections to work, the web archive must be a bean archive. That means adding `beans.xml` (can be empty) to the `WEB-INF` directory.
 
 ## Configuration
 
@@ -62,9 +62,9 @@ Add Stripes Injection Enricher to Stripes `Extension.Packages` property:
 Stripes Injection Enricher requires a Java EE 6-compliant application server providing support for JSR-299 (CDI).  
 It has been tested with the following application servers:
 
-* JBoss AS 6
-* JBoss AS 7
 * GlassFish 3.1
+* JBoss AS 7
+* JBoss AS 6
 
 ## Licensing
 

@@ -64,10 +64,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
+                <version>2.5</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
@@ -76,13 +76,13 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>2.5</version>
                 <configuration>
-                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <encoding>${project.build.resourceEncoding}</encoding>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.3.2</version>
+                <version>2.4</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -97,7 +97,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.11</version>
+                <version>2.12</version>
                 <configuration>
                     <skipTests>true</skipTests>
                 </configuration>
@@ -105,9 +105,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.11</version>
+                <version>2.12</version>
                 <configuration>
-                    <encoding>UTF-8</encoding>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                     <skipTests>true</skipTests>
                 </configuration>
                 <executions>
@@ -155,8 +155,8 @@
     <dependencies>
         <!-- Test -->
         <dependency>
-            <groupId>org.jboss.arquillian.testng</groupId>
-            <artifactId>arquillian-testng-container</artifactId>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -170,42 +170,78 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>6.3.1</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
             <scope>test</scope>
         </dependency>
         <!-- Provided -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.ejb</groupId>
-            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
-            <version>1.0.1.Final</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.weld</groupId>
-            <artifactId>weld-api</artifactId>
-            <version>1.1.Final</version>
-            <scope>provided</scope>
-        </dependency>
         <!-- Compile -->
         <dependency>
             <groupId>net.sourceforge.stripes</groupId>
             <artifactId>stripes</artifactId>
-            <version>1.5.6</version>
+            <version>1.5.7</version>
             <optional>true</optional>
         </dependency>
     </dependencies>
 
     <profiles>
         <profile>
+            <id>glassfish-embedded-3.1.2</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+                <!-- Test -->
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
+                    <version>${arquillian.container.version}</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.main.extras</groupId>
+                    <artifactId>glassfish-embedded-all</artifactId>
+                    <version>${glassfish.version}</version>
+                    <scope>test</scope>
+                </dependency>
+                <!-- Provided -->
+                <dependency>
+                    <groupId>javax</groupId>
+                    <artifactId>javaee-api</artifactId>
+                    <version>6.0</version>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <skipTests>false</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>jbossas-remote-7</id>
             <dependencies>
+                <!-- Test -->
                 <dependency>
                     <groupId>org.jboss.as</groupId>
                     <artifactId>jboss-as-arquillian-container-remote</artifactId>
                     <version>${jboss.version.7}</version>
                     <scope>test</scope>
+                </dependency>
+                <!-- Provided -->
+                <dependency>
+                    <groupId>org.jboss.spec</groupId>
+                    <artifactId>jboss-javaee-6.0</artifactId>
+                    <version>3.0.1.Final</version>
+                    <scope>provided</scope>
+                    <type>pom</type>
                 </dependency>
             </dependencies>
             <build>
@@ -230,7 +266,7 @@
             -->
             <dependencyManagement>
                 <dependencies>
-                    <!-- org.jboss.jbossas -->
+                    <!-- Import -->
                     <dependency>
                         <groupId>org.jboss.jbossas</groupId>
                         <artifactId>jboss-as-depchain</artifactId>
@@ -241,6 +277,7 @@
                 </dependencies>
             </dependencyManagement>
             <dependencies>
+                <!-- Test -->
                 <dependency>
                     <groupId>org.jboss.arquillian.container</groupId>
                     <artifactId>arquillian-jbossas-embedded-6</artifactId>
@@ -252,6 +289,14 @@
                     <artifactId>jboss-as-depchain</artifactId>
                     <version>${jboss.version.6}</version>
                     <scope>test</scope>
+                    <type>pom</type>
+                </dependency>
+                <!-- Provided -->
+                <dependency>
+                    <groupId>org.jboss.spec</groupId>
+                    <artifactId>jboss-javaee-6.0</artifactId>
+                    <version>3.0.1.Final</version>
+                    <scope>provided</scope>
                     <type>pom</type>
                 </dependency>
             </dependencies>
@@ -311,42 +356,17 @@
                 </plugins>
             </build>
         </profile>
-        <profile>
-            <id>glassfish-embedded-3.1</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
-                    <version>${arquillian.container.version}</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.extras</groupId>
-                    <artifactId>glassfish-embedded-all</artifactId>
-                    <version>${glassfish.version}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <skipTests>false</skipTests>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
     </profiles>
 
     <properties>
-        <arquillian.version>1.0.0.CR7</arquillian.version>
-        <arquillian.container.version>1.0.0.CR2</arquillian.container.version>
-        <jboss.version.7>7.0.2.Final</jboss.version.7>
+        <project.build.resourceEncoding>ISO-8859-1</project.build.resourceEncoding>
+        <maven.compiler.target>1.6</maven.compiler.target>
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <arquillian.version>1.0.1.Final</arquillian.version>
+        <arquillian.container.version>1.0.0.CR3</arquillian.container.version>
+        <jboss.version.7>7.1.1.Final</jboss.version.7>
         <jboss.version.6>6.1.0.Final</jboss.version.6>
-        <glassfish.version>3.1.1</glassfish.version>
+        <glassfish.version>3.1.2</glassfish.version>
         <jboss.home.6>${project.build.directory}/jboss-${jboss.version.6}</jboss.home.6>
     </properties>
 </project>
