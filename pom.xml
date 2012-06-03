@@ -129,6 +129,17 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
             </plugin>
+            <plugin>
+                <!-- mvn clean install ghDownloads:upload -->
+                <groupId>com.github.github</groupId>
+                <artifactId>downloads-maven-plugin</artifactId>
+                <version>0.5</version>
+                <configuration>
+                    <description>${project.version} release of ${project.name}</description>
+                    <override>true</override>
+                    <dryRun>true</dryRun>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -359,6 +370,7 @@
     </profiles>
 
     <properties>
+        <github.global.server>github</github.global.server>
         <project.build.resourceEncoding>ISO-8859-1</project.build.resourceEncoding>
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
