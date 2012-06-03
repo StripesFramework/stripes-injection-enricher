@@ -1,6 +1,6 @@
 # Stripes Injection Enricher
 
-Stripes Injection Enricher enriches Stripes objects by satisfying injection points specified declaratively using annotations.  
+Stripes Injection Enricher enriches [Stripes Framework](http://www.stripesframework.org/) objects by satisfying injection points specified declaratively using annotations.  
 There are three injection-based enrichers provided by Stripes Injection Enricher out of the box:
 
 * `@Resource` - Java EE resource injections
