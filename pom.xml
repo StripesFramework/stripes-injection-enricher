@@ -370,7 +370,7 @@
         <project.build.resourceEncoding>ISO-8859-1</project.build.resourceEncoding>
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
-        <arquillian.version>1.0.1.Final</arquillian.version>
+        <arquillian.version>1.0.4.Final</arquillian.version>
         <arquillian.container.version>1.0.0.CR3</arquillian.container.version>
         <jboss.version.7>7.1.1.Final</jboss.version.7>
         <jboss.version.6>6.1.0.Final</jboss.version.6>
