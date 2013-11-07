@@ -53,7 +53,7 @@ Add Stripes Injection Enricher dependency to your project:
 
 ### Stripes filter configuration
 
-Add Stripes Injection Enricher to Stripes filter `Extension.Packages` property:
+Add Stripes Injection Enricher to Stripes filter `Extension.Packages` configuration in `web.xml`:
 
 ```xml
 <init-param>

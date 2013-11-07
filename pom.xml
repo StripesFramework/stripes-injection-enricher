@@ -35,8 +35,8 @@
             <name>Samuel Santos</name>
             <url>http://www.samaxes.com/</url>
             <roles>
-                <role>project owner</role>
-                <role>developer</role>
+                <role>Project Owner</role>
+                <role>Developer</role>
             </roles>
             <timezone>0</timezone>
         </developer>
@@ -44,12 +44,12 @@
 
     <issueManagement>
         <system>GitHub</system>
-        <url>http://github.com/samaxes/stripes-injection-enricher/issues</url>
+        <url>https://github.com/StripesFramework/stripes-injection-enricher/issues</url>
     </issueManagement>
     <scm>
-        <connection>scm:git:git://github.com/samaxes/stripes-injection-enricher.git</connection>
-        <developerConnection>scm:git:git@github.com:samaxes/stripes-injection-enricher.git</developerConnection>
-        <url>http://github.com/samaxes/stripes-injection-enricher</url>
+        <connection>scm:git:git://github.com/StripesFramework/stripes-injection-enricher.git</connection>
+        <developerConnection>scm:git:git@github.com:StripesFramework/stripes-injection-enricher.git</developerConnection>
+        <url>http://github.com/StripesFramework/stripes-injection-enricher</url>
     </scm>
 
     <prerequisites>
@@ -61,7 +61,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5</version>
+                <version>3.1</version>
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
@@ -71,7 +71,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.5</version>
+                <version>2.6</version>
                 <configuration>
                     <encoding>${project.build.resourceEncoding}</encoding>
                 </configuration>
@@ -83,9 +83,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <addDefaultSpecificationEntries>false</addDefaultSpecificationEntries>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <addClasspath>false</addClasspath>
                         </manifest>
                         <addMavenDescriptor>false</addMavenDescriptor>
                     </archive>
@@ -93,19 +91,10 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.12</version>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.12</version>
+                <version>2.16</version>
                 <configuration>
                     <encoding>${project.build.sourceEncoding}</encoding>
-                    <skipTests>true</skipTests>
                 </configuration>
                 <executions>
                     <execution>
@@ -125,16 +114,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <!-- mvn clean install ghDownloads:upload -->
-                <groupId>com.github.github</groupId>
-                <artifactId>downloads-maven-plugin</artifactId>
-                <version>0.5</version>
-                <configuration>
-                    <description>${project.version} release of ${project.name}</description>
-                    <override>true</override>
-                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -179,7 +158,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.10</version>
+            <version>4.11</version>
             <scope>test</scope>
         </dependency>
         <!-- Provided -->
@@ -194,7 +173,7 @@
 
     <profiles>
         <profile>
-            <id>glassfish-embedded-3.1.2</id>
+            <id>glassfish-embedded-3.1</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -313,6 +292,7 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
+                            <skipTests>false</skipTests>
                             <additionalClasspathElements>
                                 <additionalClasspathElement>${jboss.home.6}/client/jbossws-native-client.jar</additionalClasspathElement>
                                 <!--
@@ -325,7 +305,6 @@
                             <trimStackTrace>false</trimStackTrace>
                             <printSummary>true</printSummary>
                             <forkMode>once</forkMode>
-                            <skipTests>false</skipTests>
                             <!--
                                 MaxPermSize Required to bump the space for relective data like
                                 classes, methods, etc. EMB-41. Endorsed required for things like
@@ -366,15 +345,15 @@
     </profiles>
 
     <properties>
-        <github.global.server>github</github.global.server>
         <project.build.resourceEncoding>ISO-8859-1</project.build.resourceEncoding>
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
-        <arquillian.version>1.0.4.Final</arquillian.version>
+        <arquillian.version>1.1.1.Final</arquillian.version>
         <arquillian.container.version>1.0.0.CR3</arquillian.container.version>
-        <jboss.version.7>7.1.1.Final</jboss.version.7>
+        <jboss.version.7>7.2.0.Final</jboss.version.7>
         <jboss.version.6>6.1.0.Final</jboss.version.6>
-        <glassfish.version>3.1.2</glassfish.version>
+        <glassfish.version>3.1.2.2</glassfish.version>
         <jboss.home.6>${project.build.directory}/jboss-${jboss.version.6}</jboss.home.6>
+        <skipTests>true</skipTests>
     </properties>
 </project>

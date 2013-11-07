@@ -54,7 +54,7 @@ public class EJBActionIT extends BaseIT {
                 FooServiceBean.class);
         final WebArchive war = ShrinkWrap.create(WebArchive.class, "foo.war").addPackage("com.samaxes.stripes.inject")
                 .addPackage("com.samaxes.stripes.enricher").addClasses(BaseActionBean.class, EJBActionBean.class)
-                .addAsLibraries(getStripesDependency()).setWebXML("web.xml");
+                .addAsLibrary(getStripesDependency()).setWebXML("web.xml");
         final EnterpriseArchive ear = ShrinkWrap.create(EnterpriseArchive.class, "stripes-enricher.ear")
                 .addAsModule(jar).addAsModule(war);
 

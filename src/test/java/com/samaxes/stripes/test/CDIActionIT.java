@@ -53,7 +53,7 @@ public class CDIActionIT extends BaseIT {
         final WebArchive war = ShrinkWrap.create(WebArchive.class, "stripes-enricher.war")
                 .addPackage("com.samaxes.stripes.inject").addPackage("com.samaxes.stripes.enricher")
                 .addClasses(FooService.class, FooServiceBean.class, BaseActionBean.class, CDIActionBean.class)
-                .addAsLibraries(getStripesDependency()).setWebXML("web.xml")
+                .addAsLibrary(getStripesDependency()).setWebXML("web.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
 
         LOGGER.info(war.toString(Formatters.VERBOSE));

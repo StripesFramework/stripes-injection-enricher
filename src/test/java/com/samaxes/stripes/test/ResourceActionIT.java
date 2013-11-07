@@ -49,7 +49,7 @@ public class ResourceActionIT extends BaseIT {
     public static WebArchive createDeployment() throws IOException {
         final WebArchive war = ShrinkWrap.create(WebArchive.class, "stripes-enricher.war")
                 .addPackage("com.samaxes.stripes.inject").addPackage("com.samaxes.stripes.enricher")
-                .addClasses(BaseActionBean.class, ResourceActionBean.class).addAsLibraries(getStripesDependency())
+                .addClasses(BaseActionBean.class, ResourceActionBean.class).addAsLibrary(getStripesDependency())
                 .setWebXML("web.xml");
 
         LOGGER.info(war.toString(Formatters.VERBOSE));

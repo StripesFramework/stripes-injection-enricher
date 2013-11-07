@@ -17,18 +17,16 @@
  */
 package com.samaxes.stripes.test;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
-import java.util.Collection;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.GenericArchive;
 import org.jboss.shrinkwrap.api.exporter.ZipExporter;
-import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
-import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.runner.RunWith;
 
 /**
@@ -47,9 +45,9 @@ public abstract class BaseIT {
      *
      * @return Stripes framework dependencies
      */
-    protected static Collection<GenericArchive> getStripesDependency() {
-        return DependencyResolvers.use(MavenDependencyResolver.class).loadMetadataFromPom("pom.xml")
-                .artifact("net.sourceforge.stripes:stripes").resolveAs(GenericArchive.class);
+    protected static File getStripesDependency() {
+        return Maven.resolver().loadPomFromFile("pom.xml").resolve("net.sourceforge.stripes:stripes")
+                .withoutTransitivity().asSingleFile();
     }
 
     /**
