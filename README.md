@@ -18,20 +18,22 @@ If no matching beans were found in those locations the injection will fail.
 
 However, you can manually set the JNDI name to lookup using the `mappedName` attribute for `@EJB`, as well as the attributes `mappedName` and `name` attributes for `@Resource`:
 
-    public class MyActionBean implements ActionBean {
+```java
+public class MyActionBean implements ActionBean {
 
-        @Inject
-        private FooService fooService;
+    @Inject
+    private FooService fooService;
 
-        @EJB
-        // or manually @EJB(mappedName = "java:global[/<app-name>]/<module-name>/BarService")
-        private BarService barService;
+    @EJB
+    // or manually @EJB(mappedName = "java:global[/<app-name>]/<module-name>/BarService")
+    private BarService barService;
 
-        @Resource(name = "greeting")
-        // same as @Resource(mappedName = "java:comp/env/greeting")
-        private String greeting;
+    @Resource(name = "greeting")
+    // same as @Resource(mappedName = "java:comp/env/greeting")
+    private String greeting;
 
-    }
+}
+```
 
 **Note:** In order for CDI injections to work, the web archive must be a bean archive. That means adding a `beans.xml` file (can be empty) to the `WEB-INF` directory.
 
@@ -41,20 +43,24 @@ However, you can manually set the JNDI name to lookup using the `mappedName` att
 
 Add Stripes Injection Enricher dependency to your project:
 
-    <dependency>
-        <groupId>com.samaxes.stripes</groupId>
-        <artifactId>stripes-injection-enricher</artifactId>
-        <version>VERSION</version>
-    </dependency>
+```xml
+<dependency>
+    <groupId>com.samaxes.stripes</groupId>
+    <artifactId>stripes-injection-enricher</artifactId>
+    <version>VERSION</version>
+</dependency>
+```
 
 ### Stripes filter configuration
 
 Add Stripes Injection Enricher to Stripes filter `Extension.Packages` property:
 
-    <init-param>
-        <param-name>Extension.Packages</param-name>
-        <param-value>com.samaxes.stripes.inject</param-value>
-    </init-param>
+```xml
+<init-param>
+    <param-name>Extension.Packages</param-name>
+    <param-value>com.samaxes.stripes.inject</param-value>
+</init-param>
+```
 
 ## Requirements
 
