@@ -15,7 +15,7 @@
 
     <name>Stripes Injection Enricher</name>
     <description>Java EE Injection Enricher for the Stripes Framework</description>
-    <url>http://github.com/samaxes/stripes-injection-enricher</url>
+    <url>https://github.com/StripesFramework/stripes-injection-enricher</url>
     <inceptionYear>2011</inceptionYear>
     <organization>
         <name>samaxes</name>
